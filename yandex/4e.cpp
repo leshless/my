@@ -31,7 +31,7 @@ int main(){
         case 'P':
             a.push_back(1);
             break;
-        case 'G':
+        case 'Gcdcd':
             a.push_back(2);
             break;
         }
