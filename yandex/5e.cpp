@@ -30,6 +30,7 @@ int main(){
     }else{  
         i = n / 2 - 1;
         j = n / 2;
+        
     }
 
     while (i != -1){
