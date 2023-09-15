@@ -10,13 +10,20 @@ using namespace std;
 #define ll long long
 #define dbl double
 #define ldbl long double
-#define uint unsigned int
 #define peque priority_queue
-#define map unordered_map
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
+
+    ll n;
+    cin >> n;
+
+    if (n <= 6){
+        cout << 1 << endl;
+    }else{
+        cout << 2 + (n-6) / 4 - ((n-6) % 4 == 0) << endl;
+    }
 
     return 0;
 }
