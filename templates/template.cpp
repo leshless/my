@@ -1,4 +1,4 @@
-#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC optimize("O3")
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <bits/stdc++.h>
