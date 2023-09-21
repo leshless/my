@@ -1,3 +1,4 @@
+namespace Nat
 
 def foo (m n : Nat) : Nat :=
   if n = 0
@@ -7,5 +8,7 @@ def foo (m n : Nat) : Nat :=
 def sumCubes (n : Nat) : Nat :=
   foo 0 n
 
+end Nat 
 
-#eval sumCubes 1000000
+
+#eval (3).sumCubes
