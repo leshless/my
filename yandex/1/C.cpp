@@ -12,8 +12,8 @@ using dbl = double;
 using ldbl = long double;
 using uint = unsigned int;
 
-
 vector <vector<int>> g;
+vector <vector<int>> gr;
 vector <bool> used;
 vector <int> ord;
 vector <vector<int>> sccs;
@@ -37,7 +37,7 @@ void find(int u){
     }
     used[u] = 1;
 
-    for (int v : g[u]){
+    for (int v : gr[u]){
         find(v);
     }
     scc.push_back(u);
@@ -52,6 +52,7 @@ int main(){
 
     vector <int> nbs;
     g.assign(n, nbs);
+    gr.assign(n, nbs);
     used.assign(n, 0);
 
     for (int i = 0; i < m; i++){
@@ -60,12 +61,14 @@ int main(){
         u--; v--;
 
         g[u].push_back(v);
+        gr[v].push_back(u);
     }
 
     for (int i = 0; i < n; i++){
         dfs(i);
     }
 
+    reverse(ord.begin(), ord.end());
     used.assign(n, 0);
 
     for (int i = 0; i < n; i++){
@@ -77,9 +80,6 @@ int main(){
         }
     }
 
-    reverse(sccs.begin(), sccs.end());
-
-    
     vector <int> res(n, 0);
     for (int i = 0; i < sccs.size(); i++){
         for (int u : sccs[i]){  
