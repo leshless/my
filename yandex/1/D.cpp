@@ -12,6 +12,23 @@ using dbl = double;
 using ldbl = long double;
 using uint = unsigned int;
 
+vector <map<int,ll>> g;
+
+ll dfs (int u, int t){
+    if (u == t){
+        return 0;
+    }
+
+    ll res = LLONG_MAX;
+    for (auto [v, w] : g[u]){
+        ll l = dfs(v, t);
+        if (l != LLONG_MAX){
+            res = min(res, l + w);
+        }
+    }
+
+    return res;
+}
 
 int main(){
     ios_base::sync_with_stdio(0);
@@ -21,34 +38,27 @@ int main(){
     cin >> n >> m >> s >> t;
     s--; t--;
 
-    vector <map<int,int>> g(n);
+    map <int, ll> nbs;
+    g.assign(n, nbs);
 
     for (int i = 0; i < m; i++){
-        int u, v, w;
+        int u, v;
+        ll w;
         cin >> u >> v >> w;
         u--; v--;
 
         g[u][v] = w;
     }
 
-    vector <int> dst(n, 0x7fffffff);
-    dst[s] = 0;
+    ll res = dfs(s, t);
 
-    for (int i = 0; i < n; i++){
-        for (int u = 0; u < n; u++){
-            for (auto [v, w] : g[u]){
-                if (dst[u] < 0x7fffffff){
-                    dst[v] = min(dst[v], dst[u] + w);
-                }
-            }
-        }
-    }
-
-    if (dst[t] != 0x7fffffff){
-        cout << dst[t] << endl;
+    if (res == LLONG_MAX){
+        cout << "Unreachable" << endl;
     }else{
-        cout << "Unreachable" << endl;  
+        cout << res << endl;
     }
+    
+
 
 
 
