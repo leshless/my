@@ -19,28 +19,43 @@ int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    string a = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    string alph = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     map <char, int> val;
     for (int i = 0; i < 36; i++){
-        val[a[i]] = i;
+        val[alph[i]] = i;
     }
 
     string s;
-    ll d;
+    int d;
     cin >> s >> d;
 
-    ll n = s.size();
-    ll c = 0;
+    reverse(s.begin(), s.end());
+    int n = s.size();
+    ll rad = 1;
 
     ll res = 0;
-    for (int i = n-1; i >= 0; i--){
-        res += val[s[i]] * pow(d, c);
-        c++;
+    for (int i = 0; i < n; i++){
+        res += rad *  val[s[i]];
+        rad *= d;
     }
 
-    ll sres = sqrt(res);
-    cout << (sres * sres == res ? "YES" : "NO") << endl;
+    ll l = 0;
+    ll r = 1ll << 32;
 
+    while (l < r){
+        ll m = (l >> 1) + (r >> 1);
+
+        if (m*m > res){
+            r = m;
+        }else if (m*m < res){
+            l = m + 1;
+        }else{
+            l = m;
+            break;
+        }
+    }
+
+    cout << (l*l == res ? "YES" : "NO") << endl;
 
     return 0;
 }

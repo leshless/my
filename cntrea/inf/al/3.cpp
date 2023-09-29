@@ -12,9 +12,15 @@ using namespace std;
 #define peque priority_queue
 #define map unordered_map
 
+
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
+
+    ll a, b;
+    cin >> a >> b;
+
+    cout << (a & ~b) << endl;
 
     return 0;
 }
