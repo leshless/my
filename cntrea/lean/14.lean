@@ -1,4 +1,4 @@
--- def BoehmList (T : Type _) := (R : Type _) → R → (T → R → R) → R
+def BoehmList (T : Type _) := (R : Type _) → R → (T → R → R) → R
 
 def List.foldR (lst : List T) (R : Type _) (init : R) (step : T → R → R) : R :=
   match lst with
