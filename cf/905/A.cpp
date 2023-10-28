@@ -16,23 +16,22 @@ using namespace std;
 
 
 void solve(){
-    int n;
-    cin >> n;
+    string s;
+    cin >> s;
 
-    vector <string> mat(n);
-    for (int i = 0; i < n; i++){
-        cin >> mat[i];
-    }
+    int res = s.size();
+    
+    for (char &a : s){
+        a = (a == '0' ? '9' : a - 1);
+    } 
+    s = '0' + s;
 
-    ll res = 0;
-    for (int i = 0; i < n/2; i++){
-        for (int j = 0; j < n/2; j++){
-            char m = max({mat[i][j], mat[j][n-i-1], mat[n-i-1][n-j-1], mat[n-j-1][i]});
-            res += (m - mat[i][j]) +  (m - mat[j][n-i-1]) + (m - mat[n-i-1][n-j-1]) + (m - mat[n-j-1][i]);
-        }
+    for (int i = 0; i < s.size()-1; i++){
+        res += abs(s[i] - s[i+1]);
     }
 
     cout << res << endl;
+
 }
 
 

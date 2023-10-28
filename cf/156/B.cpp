@@ -14,41 +14,14 @@ using namespace std;
 #define peque priority_queue
 #define map unordered_map
 
-ldbl dist(ldbl x1, ldbl y1, ldbl x2, ldbl y2){
-    ldbl dx = abs(x1 - x2);
-    ldbl dy = abs(y1 - y2);
-    return sqrtl(dx*dx + dy*dy);
-}
-
 void solve(){
-    ldbl px, py, ax, ay, bx, by;
-    cin >> px >> py >> ax >> ay >> bx >> by;
+    ll a, b, c;
+    cin >> a >> b >> c;
 
-    bool s;
-    bool e;
+    ll s = gcd(a, gcd(b, c));
+    ll res = a / s + b / s + c / s - 3;
 
-    ldbl res = 0;
-    if (dist(ax, ay, 0, 0) < dist(bx, by, 0, 0)){
-        res = max(res, dist(ax, ay, 0, 0));
-        s = 0;
-    }else{
-        res = max(res, dist(bx, by, 0, 0));
-        s = 1;
-    }
-
-    if (dist(ax, ay, px, py) < dist(bx, by, px, py)){
-        res = max(res, dist(ax, ay, px, py));
-        e = 0;
-    }else{
-        res = max(res, dist(bx, by, px, py));
-        e = 1;
-    }
-
-    if (s != e){
-        res = max(res, dist(ax, ay, bx, by) / 2);
-    }
-
-    cout << fixed << setprecision(10) << res << endl;
+    cout << (res <= 3 ? "YES" : "NO") << endl;
 }
 
 

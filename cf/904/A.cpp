@@ -15,24 +15,28 @@ using namespace std;
 #define map unordered_map
 
 
-void solve(){
-    int n;
-    cin >> n;
-
-    vector <string> mat(n);
-    for (int i = 0; i < n; i++){
-        cin >> mat[i];
+int sum (int x){
+    int res = 0;
+    while (x > 0){
+        res += x % 10;
+        x /= 10;
     }
+    return res;
+}
 
-    ll res = 0;
-    for (int i = 0; i < n/2; i++){
-        for (int j = 0; j < n/2; j++){
-            char m = max({mat[i][j], mat[j][n-i-1], mat[n-i-1][n-j-1], mat[n-j-1][i]});
-            res += (m - mat[i][j]) +  (m - mat[j][n-i-1]) + (m - mat[n-i-1][n-j-1]) + (m - mat[n-j-1][i]);
+void solve(){
+    int x, k;
+    cin >> x >> k;
+
+    int res = 0;
+    for (res = x; res <= x+100; res++){
+        if (sum(res) % k == 0){
+            break;
         }
     }
 
     cout << res << endl;
+
 }
 
 

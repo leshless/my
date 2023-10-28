@@ -14,70 +14,51 @@ using namespace std;
 #define peque priority_queue
 #define map unordered_map
 
-const ll mod = 998244353;
 
-ll mdiv(ll a, ll b){
-    ll x1 = mod;
-    ll x2 = b;
-    ll y1 = 0;
-    ll y2 = a;
-
-    while(x2 != 1){
-        a = x1 / x2;
-
-        ll tmpx = x1 - a * x2;
-        ll tmpy = y1 - a * y2;
-
-        x1 = x2;
-        y1 = y2;
-        x2 = tmpx;
-        y2 = tmpy;
-    }
-
-    return ((y2 % mod) + mod) % mod;
-}
 
 void solve(){
-    ll n, m;
-    string s;
-    cin >> n >> m >> s;
+    int n;
+    cin >> n;
 
-    ll res = 1;
-    for (int i = 1; i < n-1; i++){
-        if (s[i] == '?'){
-            res *= i;
-            res %= mod;
-        }
-
+    vector <int> nums(n);
+    for (int i = 0; i < n; i++){
+        cin >> nums[i];
     }
-    cout << (s[0] == '?' ? 0 : res) << endl;
 
-    while (m--){
-        int i;
-        char t;
-        cin >> i >> t;
-        i--;
+    map <int, int> div;
+    for (int i = 0; i < n; i++){
+        int a = nums[i];
 
-        if (!i){
-            s[i] = t;
-            cout << (s[0] == '?' ? 0 : res) << endl;
-            continue;
-        }
+        for (int i = 2; i*i <= a; i++){
+            if (a % i == 0){
+                if (div.count(i) == 0){
+                    div[i] = 1;
+                }else{
+                    div[i] += 1;
+                }
 
-        if (!(((s[i] == '<' || s[i] == '>') && (t == '<' || t == '>')) || (s[i] == '?' && t == '?'))){
-            if (t == '?'){
-                res *= i;
-                res %= mod;
-            }else{
-                res = mdiv(res, i);
+                a /= i;
+                i--;
             }
         }
 
-        cout << (s[0] == '?' ? 0 : res) << endl;
-        s[i] = t;
+        if (a != 1){
+            if (div.count(a) == 0){
+                div[a] = 1;
+            }else{
+                div[a] += 1;
+            }
+        }
     }
 
+    for (auto [a, c] : div){
+        if (c % n != 0){
+            cout << "NO" << endl;
+            return;
+        }
+    }
 
+    cout << "YES" << endl;
     return;
 }
 
@@ -86,7 +67,11 @@ int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    solve();
+    int t;
+    cin >> t;
+    while (t--){
+        solve();
+    }
 
     return 0;
 }
