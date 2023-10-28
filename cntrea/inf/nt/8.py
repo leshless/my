@@ -1,22 +1,29 @@
-N = 1 << 32
+import math
 
-tbl = [False] + [True for i in range(1, N)]
-prime = []
+a, b = map(int, input().split())
 
-for i in range(1, N):
-    if tbl[i]:
-        prime.append(i)
+table = set([])
+prime = set([])
+
+for i in range(2, int(math.sqrt(b)) + 1):
+    if not i in table:
+        prime.add(i)
+    
     for j in prime:
-        if i*j < N:
-            tbl[i*j] = False
-            
+        if i * j > int(math.sqrt(b) + 1):
+            break
+        table.add(i*j)
 
-a = int(input())
-b = int(input())
+res = set([])
+for p in prime:
+    x = a + (-a % p)
+    while (x < b):
+        if x != p:
+            res.add(x)
+        x += p
+res.add(0)
+res.add(1)
 
-for x in prime:
-    if x >= b:
-        break
-    if x >= a:
-        print(x, end=" ")
-print()
+for x in range(a, b):
+    if not x in res:
+        print(x)
