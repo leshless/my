@@ -14,9 +14,8 @@ using uint = unsigned int;
 
 int n;
 vector <map<int, int>> g;
-vector <map<int, bool>> cld;
 vector <ll> res;
-vector <int> cnt;
+vector <int> cld;
 vector <bool> used;
 
 void dfs1 (int u){
@@ -25,13 +24,12 @@ void dfs1 (int u){
     for (auto [v, w] : g[u]){
         if (!used[v]){
             dfs1(v);
-            cnt[u] += cnt[v];
-            cld[u].insert(cld[v].begin(), cld[v].end());
+            cld[u] += cld[v];
         }
     }
 
-    cnt[u]++;
-    cld[u][u] = 1;
+    cld[u]++;
+    return;
 }
 
 void dfs2 (int u){
@@ -39,18 +37,21 @@ void dfs2 (int u){
 
     for (auto [v, w] : g[u]){
         if (!used[v]){
-            if (cnt[v] != 1){
-                dfs2(v);
-            }
+            dfs2(v);
+            res[u] += res[v] + ll(w) * cld[v];
+        }
+    }
 
-            for (int i = 0; i < n; i++){
-                if (cld[v][i]){
-                    res[i] += ll(w) * (n - cnt[v]);
-                }else{
-                    res[i] += ll(w) * cnt[v];
-                }
-            }
+    return;
+}
 
+void dfs3 (int u){
+    used[u] = 1;
+
+    for (auto [v, w] : g[u]){
+        if (!used[v]){
+            res[v] += res[u] - (res[v] + ll(w) * cld[v]) + ll(w) * (n - cld[v]);
+            dfs3(v);
         }
     }
 
@@ -64,10 +65,9 @@ int main(){
     cin >> n;
 
     g.resize(n);
-    cld.resize(n);
-    res.resize(n);
+    cld.assign(n, 0);
+    res.assign(n, 0);
     used.assign(n, 0);
-    cnt.assign(n, 0);
 
     for (int i = 0; i < n-1; i++){
         int u, v, w;
@@ -78,15 +78,15 @@ int main(){
         g[v][u] = w;
     }
 
-    dfs1(n-1);
+    dfs1(0);
     used.assign(n, 0);
-    dfs2(n-1);
+    dfs2(0);
+    used.assign(n, 0);
+    dfs3(0);
     
     for (int i = 0; i < n; i++){
         cout << res[i] << " ";
     }
-
-
 
     return 0;
 }
