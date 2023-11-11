@@ -15,27 +15,22 @@ using namespace std;
 #define map unordered_map
 
 void solve(){
-    ll a, b, c;
-    cin >> a >> b >> c;
+    int n, c;
+    cin >> n >> c;
 
-    ll s = gcd(a, gcd(b, c));
-    ll res = a / s + b / s + c / s - 3;
 
-    cout << (res <= 3 ? "YES" : "NO") << endl;
+
+
+    return;
 }
-
 
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    int t;
-    cin >> t;
 
-    while (t--){
-        solve();
-    }
+    solve();
 
     return 0;
 }

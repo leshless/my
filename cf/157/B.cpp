@@ -14,26 +14,30 @@ using namespace std;
 #define peque priority_queue
 #define map unordered_map
 
-
 void solve(){
     int n;
     cin >> n;
 
-    vector <string> mat(n);
+    vector <int> nums(2*n);
+    for (int i = 0; i < 2*n; i++){
+        cin >> nums[i];
+    }
+
+    sort(nums.begin(), nums.end());
+
+    int s = 0;
+    for (int i = 0; i < n-1; i++){
+        s += abs(nums[i] - nums[i+1]) + abs(nums[i+n] - nums[i+1+n]);
+    }
+    cout << s << endl;
+
     for (int i = 0; i < n; i++){
-        cin >> mat[i];
+        cout << nums[i] << " " << nums[i+n] << endl;
     }
 
-    ll res = 0;
-    for (int i = 0; i < n/2; i++){
-        for (int j = 0; j < n/2; j++){
-            char m = max({mat[i][j], mat[j][n-i-1], mat[n-i-1][n-j-1], mat[n-j-1][i]});
-            res += (m - mat[i][j]) +  (m - mat[j][n-i-1]) + (m - mat[n-i-1][n-j-1]) + (m - mat[n-j-1][i]);
-        }
-    }
-
-    cout << res << endl;
+    return;
 }
+
 
 
 int main(){
