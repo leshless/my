@@ -145,10 +145,16 @@
 #     return Tensor([ [ 1 if (i == j) else 0 for j in range(b) ] for i in range(a) ])
 
 
-# B = Tensor([[1, 2], [3, 4]])
+# B = Tensor([1, 2])
+# C = Tensor([2, 3])
+# A = Tensor([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
 
-x, y = B.shape
-C = eye(x, x).reshape((x, 1, 1, x)) * eye(y, y).reshape((1, y, y, 1))
-A = tensordot(B, C, dims=2)
+i, l = A.shape[0], A.shape[3]
+j = B.shape[0]
+k = C.shape[0]
+s = A.shape[1]
 
-# print(A.data)
+E = (eye(s, i) * eye(s, l))
+F = tensordot(A, E, dims=2).reshape((i, 1, 1, l))
+G = C.reshape((1, 1, k, 1)) * B.reshape((1, j, 1, l))
+D = F + G
