@@ -6,40 +6,38 @@
 
         <title>web page</title>
         <link rel="stylesheet" href="styles.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+        </script>
     </head>
 
-    <body>
-
-        <div class="gr">
-
-            <p><b>Четыре раза войдите в аккаунт</b></p>
-
-            <input type="text" class="login" placeholder="Логин:"><br>
-            <input type="password" class="password" placeholder="Пароль:"><br>
-
-            <input type="text" class="login" placeholder="Логин:"><br>
-            <input type="password" class="password" placeholder="Пароль:"><br>
-
-            <input type="text" class="login" placeholder="Логин:"><br>
-            <input type="password" class="password" placeholder="Пароль:"><br>
-
-            <input type="text" class="login" placeholder="Логин:"><br>
-            <input type="password" class="password" placeholder="Пароль:"><br>
-
-
-            <p id="show">
-                Показать пароль
-                <input type="checkbox" id="check"></input>
-            </p>
-            
-
-            <button onclick="apply()">ОК</button>
-
+    <body onload=getjson()>
+        <div class="main">
+            <p><b>Рандомный флаг</b></p>
+            <img id="flag" src="https://flagcdn.com/ru.svg" alt="flag" onclick=newflag() width="1600px" height="900px">
         </div>
-
     </body>
 
-    <script src="./ui.js"></script>
+    <script>
+        let countries = []
+        const flag = document.getElementById("flag")
 
+        async function getjson(){
+            let res = await fetch('https://flagcdn.com/en/codes.json')
+            
+            if (res.ok) {
+                json = await res.json();
+            } else {
+                alert("Ошибка HTTP: " + response.status);
+            }
+            countries = Object.keys(json)
+        }
+
+        async function newflag(){
+            const country = countries[Math.floor(Math.random() * countries.length)]
+            flag.src = `https://flagcdn.com/${country}.svg`
+        }
+
+
+    </script>
 </html>

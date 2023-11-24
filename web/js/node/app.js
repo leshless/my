@@ -1,11 +1,11 @@
 const express = require("express")
 const app = express()
-const port = "8000"
+const port = process.env.port || "8000"
 
-app.use(express.static('public'))
+app.use(express.static(__dirname + "/public"))
 
 app.get('/', (req, res) => {
-    res.send('Hello, World!')
+    res.sendfile(path.join(__dirname + "index.html"))
 })
   
 app.listen(port, () => {
