@@ -12,6 +12,22 @@ using namespace std;
 #define peque priority_queue
 #define map unordered_map
 
+vector<int> preff(string s) {
+    int n = s.size();
+    vector<int> p(n, 0);
+
+    for (int i = 1; i < n; i++) {
+        int cur = p[i - 1];
+        while (s[i] != s[cur] && cur > 0){
+            cur = p[cur - 1];
+        }
+        if (s[i] == s[cur]){
+            p[i] = cur + 1;
+        }
+    }
+    return p;
+}
+
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
@@ -31,51 +47,36 @@ int main(){
             s1[n*j + i] = x;
         }
     }
-
     // cout << s1 << endl;
 
-    map <char, int> shift;
-    for (int i = m-2; i >= 0; i--){
-        char x = p[i];
-        if (shift.count(x) == 0){
-            shift[x] = m-i-1;
-        }
-    }
-    if (shift.count(p[m-1]) == 0){
-        shift[p[m-1]] = m;
-    }
+    auto pref = preff(p);
+    // for (int x : pref){
+    //     cout << x << " ";
+    // }
+    // cout << endl;
 
-    int i = m-1;
     int res = 0;
-
-    while (i-m+1 < n){
-        char x = s1[i];
-        int k = i;
-        bool f = 1;
-
-        for (int j = m-1; j >= 0; j--){
-            if (p[j] != s1[k]){
-                f = 0;
-                break;
-            }else{
-                k--;
-            }
-        }
-
-        if (f){
-            res++;
+    int i = 0;
+    int j = 0;
+    while(i < s1.size() && i - j < n){
+        if (p[j] == s1[i]){
             i++;
-            // cout << k+1 << " ";
+            j++;
+            if (j == m){
+                res++;
+                j = pref[m-1];
+            }
         }else{
-            if (shift.count(x) == 0){
-                i += m;
+            if (j){
+                j = pref[j-1];
             }else{
-                i += shift[x];
+                i++;
             }
         }
     }
 
     cout << res << endl;
+
 
 
     return 0;
