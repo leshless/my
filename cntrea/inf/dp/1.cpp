@@ -29,12 +29,30 @@ int main(){
     sort(nums.begin(), nums.end());
 
     int i = 0;
-    while (k && i < n){
+    while (i < n){
         if (k >= nums[i]){
             k -= nums[i];
             i++;
+        }else{
+            break;
         }
     }
+
+    int r1 = i;
+    k += nums[i-1];
+
+    while (i < n){
+        if (k >= nums[i]){
+            i++;
+        }else{
+            break;
+        }
+    }
+
+    int r2 = nums[i-1];
+
+    cout << r1 << " " << r2 << endl;
+    
 
     return 0;
 }
