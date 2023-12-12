@@ -35,9 +35,9 @@ r1 = -1
 r2 = -1
 
 
-for y in rows.keys():
+for y in rows:
     row = rows[y]
-    res = foo(list(row), k)
+    res = foo(sorted(list(row)), k)
 
     if res > r1:
         r1 = res
@@ -46,7 +46,6 @@ for y in rows.keys():
     if res == r1:
         r2 = max(r2, y)
 
-
 print(r1, r2)
 
-# print(foo([], 3))
+# 4_5_7_11_13_14_17 1
