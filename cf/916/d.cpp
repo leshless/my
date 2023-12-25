@@ -48,7 +48,49 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
+int step(vi &a, vi &b, vi &c){
+    int n = Len(a);
+
+    int sc = 0;
+    int sb = 0;
+    int sa = 0;
+    For(i, 0, n){
+        sc = max(sc, sb + c[i]);
+        sb = max(sb, sa + b[i]);
+        sa = max(sa, a[i]);
+    }
+    return sc;
+}
+
 void solve(){
+    int n;
+    cin >> n;
+
+    vi a(n);
+    For(i, 0, n){
+        cin >> a[i];
+    }
+
+    vi b(n);
+    For(i, 0, n){
+        cin >> b[i];
+    }
+
+    vi c(n);
+    For(i, 0, n){
+        cin >> c[i];
+    }
+
+    vi res{
+        step(a, b, c),
+        step(a, c, b),
+        step(b, a, c),
+        step(b, c, a),
+        step(c, a, b),
+        step(c, b, a),
+    };
+
+    cout << Max(res) << endl;
     
     return;
 }
@@ -58,7 +100,8 @@ int main(){
     cin.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
+
     while(t--){
         solve();
     }

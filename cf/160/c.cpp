@@ -49,7 +49,53 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
-    
+    int m;
+    cin >> m;
+
+    vector <int> table(32, 0);
+
+    while (m--){
+        int t, v;
+        cin >> t >> v;
+
+        if (t == 1){
+            table[v]++;
+
+            while (table[v] == 3){
+                table[v] = 1;
+                table[v+1]++;
+                v++;
+            }
+
+            // Print(table);
+        }else{
+            int c = 0;
+            bool ign = 0;
+            bool f = 1;
+
+            while(v > 0){
+                int cur = table[c];
+                cur -= (v % 2);
+                cur += ign;
+
+                if (cur < 0){
+                    f = 0;
+                    break;
+                }
+                if (cur >= 2){
+                    ign = 1;
+                }else{
+                    ign = 0;
+                }
+
+                v /= 2;
+                c++;
+            }
+
+            cout << (f ? "YES" : "NO") << endl;
+        }
+    }
+
     return;
 }
 
@@ -59,6 +105,7 @@ int main(){
 
     int t = 1;
     // cin >> t;
+
     while(t--){
         solve();
     }

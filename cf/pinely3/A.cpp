@@ -49,7 +49,30 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
-    
+    int n;
+    cin >> n;
+
+    vector <int> xs(n);
+    vector <int> ys(n);
+    For(i, 0, n){
+        int x, y;
+        cin >> xs[i] >> ys[i];
+    }
+
+    bool xl = 0;
+    bool xg = 0;
+    bool yl = 0;
+    bool yg = 0;
+
+    For(i, 0, n){
+        xl |= xs[i] < 0;
+        xg |= xs[i] > 0;
+        yl |= ys[i] < 0;
+        yg |= ys[i] > 0;
+    }
+
+    cout << ((xl && xg && yl && yg) ? "NO" : "YES") << endl;
+
     return;
 }
 
@@ -58,7 +81,8 @@ int main(){
     cin.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
+
     while(t--){
         solve();
     }

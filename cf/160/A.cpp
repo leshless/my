@@ -49,6 +49,25 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
+    int a;
+    cin >> a;
+
+    int b = 0;
+
+    int c = 0;
+    while (a > 0){
+        b += (a % 10) * pow(10, c);
+
+        if ((a % 10) && (a / 10) && (a / 10 < b)){
+            cout << a / 10 << " " << b << endl;
+            return;
+        }
+
+        a /= 10;
+        c++;
+    }
+
+    cout << -1 << endl;
     
     return;
 }
@@ -58,7 +77,8 @@ int main(){
     cin.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
+
     while(t--){
         solve();
     }

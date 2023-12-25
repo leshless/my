@@ -49,6 +49,39 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
+    int n;
+    cin >> n;
+
+    vi a(n);
+    For(i, 0, n){
+        cin >> a[i];
+    }
+
+    vi b(n);
+    For(i, 0, n){
+        cin >> b[i];
+    }
+
+    vi ord(n);
+    For(i, 0, n){
+        ord[i] = i;
+    }
+    sort(All(ord), [&](int i, int j){return a[i] + b[i] > a[j] + b[j];});   
+    
+    ll ar = 0;
+    ll br = 0;
+    int c = 0;
+    ForEach(i, ord){
+        if (c & 1){
+            br += (b[i] - 1);
+        }else{
+            ar += (a[i] - 1);
+        }
+
+        c++;
+    }
+
+    cout << ar - br << endl;
     
     return;
 }
@@ -58,7 +91,8 @@ int main(){
     cin.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
+
     while(t--){
         solve();
     }

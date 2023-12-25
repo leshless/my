@@ -49,6 +49,24 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
+    int n;
+    cin >> n;
+
+    string s;
+    cin >> s;
+
+    map <int, int> freq;
+
+    For(i, 0, n){
+        freq[s[i] - 'A' + 1]++;
+    }
+
+    int res = 0;
+    For(i, 1, 27){
+        res += (freq[i] >= i);
+    }
+
+    cout << res << endl;
     
     return;
 }
@@ -58,7 +76,8 @@ int main(){
     cin.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
+
     while(t--){
         solve();
     }
