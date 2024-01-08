@@ -49,20 +49,51 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
-void solve(){
-    
-    return;
-}
+const int N = 5e4 + 10;
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    int t = 1;
-    // cin >> t;
-    while(t--){
-        solve();
+    int n, k;
+    cin >> n >> k;
+
+    if (k == 1){
+        cout << (n & 1 ? "Marsha" : "Bill") << endl;
+        return 0;
     }
+
+    if (n < k){
+        cout << "Bill" << endl;
+        return 0;
+    }
+    n -= k;
+    
+    bitset <N> used;
+    vi game(n+1, 0);
+
+    For(i, k, n+1){
+        int s = i-k;
+        For(j, 0, s/2+1){
+            used[game[j] ^ game[s-j]] = 1;
+        }
+
+        For(j, 0, n+1){
+            if (!used[j]){
+                game[i] = j;
+                break;
+            }
+        }
+
+        used.reset();
+    }
+    
+
+    For(i, 0, n+1){
+        cout << i << " " << game[i] << endl;
+    }
+
+    cout << (game[n] ? "Bill" : "Marsha") << endl;
 
     return 0;
 }
