@@ -9,7 +9,6 @@ typedef double dbl;
 typedef long double ld;
 typedef unsigned int uint;
 typedef unsigned long long ull;
-typedef __int128_t int128;
  
 typedef pair <int, int> pi;
 typedef pair <ll,ll> pll;
@@ -49,10 +48,56 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
+void solve(){
+    int n, k;
+    cin >> n >> k;
+
+    int m = 2023;
+    bool b = 0;
+
+    while (n--){
+        int x;
+        cin >> x;
+
+        if (m % x){
+            b = 1;
+        }else{
+            m /= x;
+        }
+    }
+    
+    if (b){
+        cout << "NO" << endl;
+        return;
+    }
+
+    cout << "YES" << endl;
+
+    vi res;
+    ForR(i, 18, 1){
+        while ((k > 0) && (m % i == 0)){
+            m /= i;
+            res.push_back(i);
+            k--;
+        }
+    }
+
+    Print(res);
+
+    return;
+}
+
+
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    srand(80085);
+
+    int t;
+    cin >> t;
+
+    while (t--){
+        solve();
+    }
 
     return 0;
 }

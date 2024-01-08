@@ -9,7 +9,6 @@ typedef double dbl;
 typedef long double ld;
 typedef unsigned int uint;
 typedef unsigned long long ull;
-typedef __int128_t int128;
  
 typedef pair <int, int> pi;
 typedef pair <ll,ll> pll;
@@ -27,7 +26,7 @@ template <class T> using pequeg = priority_queue<T, vector<T>, greater<T>>;
 #define sd second
  
 #define For(i, l, r) for (int i=l; i<r; i++)
-#define ForR(i, r, l) for (int i=r-1; i>=l; i--)
+#define ForR(i, l, r) for (int i=r-1; i>=l; i--)
 #define ForEach(x, vec) for (auto &x : vec)
  
 template <typename T>
@@ -49,10 +48,48 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
+void solve(){
+    int n; 
+    cin >> n;
+
+    vi nums(n);
+    For(i, 0, n){
+        cin >> nums[i];
+    }
+
+    if (n <= 2){
+        cout << 0 << endl;
+        return;
+    }
+
+    int res = 0;
+    stack <int> ng;
+    bitset <100000 * 2 + 100> ok;
+
+    For(i, 0, n){
+        while(!ng.empty() && nums[i] > nums[ng.top()]){
+            res += ok[ng.top()];
+            ng.pop();
+            ok[i] = 1;
+        }
+        ng.push(i);
+    }
+
+    cout << res << endl;
+    return;
+}
+
+
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    srand(80085);
+
+    int t;
+    cin >> t;
+
+    while (t--){
+        solve();
+    }
 
     return 0;
 }

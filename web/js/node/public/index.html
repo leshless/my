@@ -4,38 +4,33 @@
 
     <head>
 
-        <title>web page</title>
-        <link rel="stylesheet" href="styles.css">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Шершавые огурчики</title>
 
     </head>
 
-    <body onload=getjson()>
-        <div class="main">
-            <p><b>Рандомный флаг</b></p>
-            <img id="flag" src="https://flagcdn.com/ru.svg" alt="flag" onclick=newflag() width="1600px" height="900px">
+    <body>
+
+        <div class="gr">
+
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi dolores facilis eum incidunt molestiae, nesciunt itaque modi illum, eius sint, optio nostrum ipsam! Minima numquam possimus repellendus assumenda id. Magnam.</p>
+
+            <input type="text" id="username" placeholder="Логин:"><br>
+
+            <input type="password" id="password" placeholder="Пароль:"><br>
+
+            <p id="show">
+                Показать пароль
+                <input type="checkbox" id="check"></input>
+            </p>
+            
+
+            <button onclick="login()">LOGIN</button>
+            <button onclick="register()">REGISTER</button>
+
         </div>
+
     </body>
 
-    <script>
-        let countries = []
-        const flag = document.getElementById("flag")
+    <script src="./ui.js"></script>
 
-        async function getjson(){
-            let res = await fetch('https://flagcdn.com/en/codes.json')
-            
-            if (res.ok) {
-                json = await res.json();
-            } else {
-                alert("Ошибка HTTP: " + response.status);
-            }
-            countries = Object.keys(json)
-        }
-
-        async function newflag(){
-            const country = countries[Math.floor(Math.random() * countries.length)]
-            flag.src = `https://flagcdn.com/${country}.svg`
-        }
-    </script>
-    <script src="./data.js"></script>
 </html>

@@ -9,7 +9,6 @@ typedef double dbl;
 typedef long double ld;
 typedef unsigned int uint;
 typedef unsigned long long ull;
-typedef __int128_t int128;
  
 typedef pair <int, int> pi;
 typedef pair <ll,ll> pll;
@@ -27,7 +26,7 @@ template <class T> using pequeg = priority_queue<T, vector<T>, greater<T>>;
 #define sd second
  
 #define For(i, l, r) for (int i=l; i<r; i++)
-#define ForR(i, r, l) for (int i=r-1; i>=l; i--)
+#define ForR(i, l, r) for (int i=r-1; i>=l; i--)
 #define ForEach(x, vec) for (auto &x : vec)
  
 template <typename T>
@@ -49,10 +48,25 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
+ll burnside(int n){
+    ll res = 0;
+    For(g, 0, n){
+        res += 1ll << (__gcd(g, n));
+    }
+    return res / n;
+}
+
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    srand(80085);
+
+    int a, b, c;
+    cin >> a >> b >> c;
+
+    ll r1 = burnside(__gcd(a, b));
+    ll r2 = burnside(__gcd(__gcd(a, b), c));
+
+    cout << r1 - r2 << endl;
 
     return 0;
 }
