@@ -49,7 +49,15 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
-    
+    ll n, m, a, k;
+    cin >> n >> m >> a >> k;
+
+    if (k == 1){
+        cout << ((n >= a) && (m >= a) ? "YES" : "NO") << endl;
+    }else{
+        cout << (((2*n >= a) && (m >= a)) || ((2*m >= a) && (n >= a)) ? "YES" : "NO") << endl;
+    }
+
     return;
 }
 

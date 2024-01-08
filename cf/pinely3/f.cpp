@@ -49,7 +49,61 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
-    
+    int n;
+    cin >> n;
+
+    vi deg(n, 0);
+    vi par(n, -1);
+    For(i, 1, n){
+        cin >> par[i];
+        par[i]--;
+        deg[par[i]]++;
+    }
+
+    // Print(par);
+    // Print(deg);
+
+    stack <int> ord;
+    For(i, 0, n){
+        if (!deg[i]){
+            ord.push(i);
+        }
+    }
+
+    int res = 0;
+    while(!ord.empty()){
+        int u = ord.top();
+        ord.pop();
+
+        if (ord.empty()){
+            int c = 0;
+            while (u != -1){
+                u = par[u];
+                c++;
+            }
+            res += max(c / 2 - 1, 0);
+        }else{
+            int v = ord.top();
+            ord.pop();
+
+            deg[par[u]]--;
+            deg[par[v]]--;
+            if (!deg[par[u]]){
+                ord.push(par[u]);
+            }
+            if (par[v] != par[u]){
+                if (!deg[par[v]]){
+                    ord.push(par[v]);
+                }
+            }
+
+            res++;
+        }
+    }
+
+    cout << res << endl;
+
+
     return;
 }
 
@@ -57,8 +111,9 @@ int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
+
     while(t--){
         solve();
     }

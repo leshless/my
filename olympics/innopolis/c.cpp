@@ -49,19 +49,45 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
-    
-    return;
+    int n, m;
+    cin >> n >> m;
+
+    vector <int> row(m, 0);
+    vector <vector <int>> mat(n, row);
+
+    For(i, 0, n){
+        For(j, 0, m){
+            cin >> mat[i][j];
+        }
+    }
+
+    ll res = 0;
+    For(i, 0, n){
+        For(j, 0, m){
+            int yc = 0;
+            For(k, i+1, n){
+                yc += (mat[i][j] == mat[k][j] + k - i);
+            }
+
+            int xc = 0;
+            For(k, j+1, m){
+                xc += (mat[i][j] == mat[i][k] + k - j);
+            }
+
+            res += xc * yc;
+        }
+    }
+
+    Println(res);
 }
+
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    int t = 1;
-    // cin >> t;
-    while(t--){
-        solve();
-    }
+    solve();
 
     return 0;
 }
+    

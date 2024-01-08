@@ -48,20 +48,41 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
-void solve(){
-    
-    return;
-}
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    int t = 1;
-    // cin >> t;
-    while(t--){
-        solve();
+    int n, q;
+    ld x;
+    cin >> n >> q >> x;
+
+    vector <ld> nums(q, 0);
+    while (n--){
+        int t;
+        ld m, k;
+        cin >> t >> m >> k;
+        nums[t-1] += m * k / 100;
     }
+
+    Sort(nums);
+    Reverse(nums);
+
+    int res = 0;
+    For(i, 0, q){
+        x -= nums[i];
+        res++;
+        if (x <= 0){
+            break;
+        }
+    }
+
+    
+    cout << (x <= 0 ? res : -1) << endl;
+
+
+
+
 
     return 0;
 }

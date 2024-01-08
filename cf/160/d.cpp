@@ -48,7 +48,39 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
+const ll M = 998244353;
+
+ll step(vi &nums, int l, int r, int prev, bool first){
+    if (r - l == 0){
+        return 1;
+    }
+    if (r - l == 1){
+        return 2;
+    }
+
+    int mn = INT_MAX;
+    int mi = -1;
+
+    For(i, l, r){
+        if (nums[i] < mn){
+            mn = nums[i];
+            mi = i;
+        }
+    }
+
+    return (step(nums, l, mi, mi, 0) * step(nums, mi+1, r, mi, 0) + (!first) + ((!first) && (abs(prev - mi) != 1) && (mi != 0) && (mi != nums.size()))) % M;
+}
+
 void solve(){
+    int n;
+    cin >> n;
+
+    vi nums(n);
+    For(i, 0, n){
+        cin >> nums[i];
+    }
+
+    cout << step(nums, 0, n, 0, 1) << endl;
     
     return;
 }
@@ -58,7 +90,8 @@ int main(){
     cin.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
+
     while(t--){
         solve();
     }

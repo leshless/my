@@ -49,7 +49,32 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
-    
+    string s;
+    cin >> s;
+
+    int c0 = 0;
+    int c1 = 0;
+
+    For(i, 0, s.size()){
+        c0 += (s[i] == '0');
+        c1 += (s[i] == '1');
+    }
+
+    int res = s.size();
+
+    int p0 = 0;
+    int p1 = 0;
+    For(i, 0, s.size()){
+        p0 += (s[i] == '0');
+        p1 += (s[i] == '1');
+
+        if ((c0 >= p1) && (c1 >= p0)){
+            res = min(res, c0 + c1 - p0 - p1);
+        }
+    }
+
+    cout << res << endl;
+
     return;
 }
 
@@ -58,7 +83,8 @@ int main(){
     cin.tie(0);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
+
     while(t--){
         solve();
     }

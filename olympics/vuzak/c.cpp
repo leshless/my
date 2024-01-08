@@ -49,7 +49,54 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
+    int n;
+    cin >> n;
     
+    map <int, int> freq;
+    vi nums;
+    For(i, 0, n){
+        int x;
+        cin >> x;
+        
+        freq[x]++;
+        nums.push_back(x);
+    }
+
+
+
+    int q;
+    cin >> q;
+    
+    vi res1;
+    vi res2;
+    For(j, 1, q+1){
+        int i, y;
+        cin >> i >> y;
+        i--;
+
+        int x = nums[i];
+        nums[i] = y;
+
+        freq[x]--;
+        if (freq[x] == 0){
+            freq.erase(x);
+        }
+        freq[y]++;
+
+        if (freq.size() == 1){
+            res1.push_back(j);
+        }
+        if (freq.size() == 2){
+            res2.push_back(j);
+        }
+    }
+
+    cout << Len(res1) << " ";
+    Print(res1);
+    cout << Len(res2) << " ";
+    Print(res2);
+
+
     return;
 }
 

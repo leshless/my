@@ -48,8 +48,74 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
+const int N = 1e5 + 228;
+map <int, int> g[N];
+map <int, ll> res;
+
+
+void dfs(int u, ll am){
+    if (g[u].size() == 0){
+        res[u] += am;
+        return;
+    }
+
+    for (auto [v, w] : g[u]){
+        dfs(v, am * w);
+    }
+
+    return;
+}
+
 void solve(){
+    int n;
+    cin >> n;
+
+    map <string, int> ids;
+    map <int, string> names;
+    int id = 0;
     
+    For(i, 0, n){
+        string s;
+        int q;
+        cin >> s >> q;
+
+        if (ids.count(s) == 0){
+            ids[s] = id;
+            names[id] = s;
+            id++;
+        }
+        int u = ids[s];
+
+        if (q == 0){
+            res[u] = 0;
+        }
+
+        while(q--){
+            string p;
+            int w;
+            cin >> p >> w;
+
+            if (ids.count(p) == 0){
+                ids[p] = id;
+                names[id] = p;
+                id++;
+            }
+            int v = ids[p];
+
+            g[u][v] = w;
+        }
+    }
+
+    string r;
+    cin >> r;
+    int t = ids[r];
+
+    dfs(t, 1);
+
+    for (auto [u, am] : res){
+        cout << names[u] << " " << am << endl;
+    }
+
     return;
 }
 

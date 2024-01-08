@@ -49,7 +49,29 @@ void Print(vector <T> &vec) {
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
 void solve(){
-    
+    int n;
+    ll t; 
+    cin >> n >> t;
+
+    vll nums(n);
+    For(i, 0, n){
+        cin >> nums[i];
+    }
+
+    Sort(nums);
+
+    int res = 0;
+    For(i, 0, n){
+        if (t >= nums[i]){
+            t -= nums[i];
+            res++;
+        }else{
+            break;
+        }
+    }  
+
+    cout << res << endl;
+
     return;
 }
 
