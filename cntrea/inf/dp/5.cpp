@@ -18,7 +18,15 @@ struct ev{
     int time;
     bool type;
 };
-auto cmp = [](ev e1, ev e2){return e1.time < e2.time;};
+auto cmp = [](ev e1, ev e2){
+    if (e1.time < e2.time){
+        return true;
+    }else if (e1.time > e2.time){
+        return false;
+    }else{
+        return !e1.type;
+    }
+};
 
 int main(){
     ios_base::sync_with_stdio(0);
