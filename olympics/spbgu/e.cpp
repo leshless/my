@@ -49,47 +49,32 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
-const int N = 5e4 + 10;
-
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    int n, k;
-    cin >> n >> k;
+    int n, x, y;
+    cin >> n >> x >> y;
 
-    if (k == 1){
-        cout << (n & 1 ? "Marsha" : "Bill") << endl;
-        return 0;
-    }
+    ll cur = x;
+    ll m = pow(10, n);
+    map <int, int> mem;
 
-    if (n < k){
-        cout << "Bill" << endl;
-        return 0;
-    }
-    n -= k;
-    
-    bitset <N> used;
-    vi game(n+1, 0);
-
-    For(i, k, n+1){
-        int s = i-k;
-        For(j, 0, s/2+1){
-            used[game[j] ^ game[s-j]] = 1;
-        }
-
-        For(j, 0, n+1){
-            if (!used[j]){
-                game[i] = j;
-                break;
+    For(i, 1, y){
+        if (mem.count(cur) != 0){
+            cur = mem[cur];
+        }else{
+            ll next = cur*x;
+            while (next >= m){
+                next = (next % m) + (next / m);
             }
+            mem[cur] = next;
+            cur = next;
         }
-
-        used.reset();
     }
-    
 
-    cout << (game[n] ? "Bill" : "Marsha") << endl;
+    cout << cur << endl;
+
 
     return 0;
 }

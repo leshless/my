@@ -97,13 +97,14 @@ ll merge_count(vi nums){
     return merge_step(nums, 0, Len(nums));
 }
 
-ll min_dif(vi nums){
-    int n = Len(nums);
+ll min_dif(vi nums, int n){
+    int m = Len(nums);
     
     ll cur = 0;
     ll res = 0;
-    ForR(i, n, 0){
-        cur += n - 2 * nums[i] + 1;
+    ForR(i, m, 0){
+        cur -= n - nums[i];
+        cur += nums[i] - 1;
         res = min(res, cur);
     }
 
@@ -135,16 +136,6 @@ vi conc(vi &p1, vi &p2){
     return res;
 }
 
-string encode(ll a, ll b){
-    return to_string(a) + " " + to_string(b);
-}
-
-pll decode(string s){
-    ll a = stoll(s.substr(0, s.find(" ")));
-    ll b = stoll(s.substr(s.find(" ") + 1));
-    return {a, b};
-}
-
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
@@ -161,26 +152,19 @@ int main(){
 
     if (w == "first"){
         ll inv1 = merge_count(nums);
-        ll dif1 = min_dif(nums);
+        ll dif1 = min_dif(nums, n);
 
-        string s = encode(inv1, dif1);
-        
-        Println(s);
+        cout << inv1 << " " << dif1 << endl;
     }else{
-        string s;
-        cin >> s;
-
-        pll p = decode(s);
-        ll inv1 = p.ft;
-        ll dif1 = p.sd;
+        ll inv1, dif1;
+        cin >> inv1 >> dif1;
 
         ll inv2 = merge_count(nums);
-        ll dif2 = min_dif(nums);
+        ll dif2 = min_dif(nums, n);
 
         Sort(nums);
-
-        vi p1 = nums;
-        vi p2 = restore_first(nums, n);
+        vi p1 = restore_first(nums, n);
+        vi p2 = nums;
 
         ll inv12 = merge_count(conc(p1, p2));
         ll inv21 = merge_count(conc(p2, p1));
