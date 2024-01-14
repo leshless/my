@@ -2,8 +2,8 @@
 
 #include <bits/stdc++.h>
 
-using namespace std::chrono;
 using namespace std;
+using namespace std::chrono;
 
 typedef long long ll;
 typedef double dbl;
@@ -28,7 +28,7 @@ template <class T> using pequeg = priority_queue<T, vector<T>, greater<T>>;
 #define sd second
 
 #define For(i, l, r) for (int i=l; i<r; i++)
-#define ForR(i, r, l) for (int i=r-1; i>=l; i--)
+#define ForR(i, l, r) for (int i=r-1; i>=l; i--)
 #define ForEach(x, vec) for (auto &x : vec)
 
 template <typename T>
@@ -61,20 +61,82 @@ void timeout(int dur) {
     }
 }
 
-void solve(){
-    return;
+bool check(vll &nums, ll a, ll b, ll m){
+    int n = Len(nums);
+    ll p = m * b;
+    ll c = 0;
+
+    if (a > b){
+        For(i, 0, n){
+            if (nums[i] > p){
+                c += (nums[i] - p) / (a - b) + ((nums[i] - p) % (a - b) != 0);
+            }
+        }   
+
+        return c <= m; 
+    }else if (a < b){
+        For(i, 0, n){
+            if (nums[i] > p){
+                return false;
+            }
+            if (c < m){
+                c += (p - nums[i]) / (b - a);
+            }
+        }
+
+        return c >= m;
+    }else{
+        For(i, 0, n){
+            if (nums[i] > p){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    srand(80085);
 
-    int t = 1;
-    // cin >> t;
-    while(t--){
-        solve();
+    int n;
+    ll a, b;
+    cin >> n >> a >> b;
+
+    // if (a > b){
+    //     timeout(100);
+    // }else if (a < b){
+    //     timeout(200);
+    // }else{
+    //     timeout(300);
+    // }
+
+    vll nums(n);
+    For(i, 0, n){
+        cin >> nums[i];
+        nums[i]++;
     }
+
+    ll l = 0;
+    ll r = 1e9 + 10;
+
+    while (l < r){
+        ll m = (l >> 1) + (r >> 1);
+
+        if (check(nums, a, b, m)){
+            r = m;           
+        }else{
+            l = m + 1;
+        }
+    }
+
+    cout << l << endl;
+
+
+    
 
     return 0;
 }

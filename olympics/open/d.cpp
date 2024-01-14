@@ -42,6 +42,13 @@ void Print(vector <T> &vec) {
     }
     cout << "\n";
 }
+template <typename T>
+void Print(map <T, T> &vec) {
+    for (auto &[k, v] : vec){
+        cout << k << ":" << v << " ";
+    }
+    cout << "\n";
+}
 
 #define All(vec) vec.begin(), vec.end()
 #define Len(vec) int(vec.size())
@@ -61,19 +68,56 @@ void timeout(int dur) {
     }
 }
 
-void solve(){
-    return;
+void answer(bool f){
+    cout << (f ? "Yes" : "No") << endl;
 }
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    srand(80085);
 
-    int t = 1;
-    // cin >> t;
-    while(t--){
-        solve();
+    int n, t, s;
+    cin >> n >> t >> s;
+
+    vi nums(n);
+    For(i, 0, n){
+        cin >> nums[i];
+    }
+    Reverse(nums);
+
+    map <int, int> idx;
+    For(i, 0, n){
+        idx[nums[i]] = i;
+    }
+
+    map <int, int> seg;
+    int cur = 0;
+    For(i, 0, n){
+        if (nums[i] < t){
+            int d = (t - nums[i]) / s + ((t - nums[i]) % s != 0);
+            t -= s*d;
+            cur += d;
+        }
+        seg[i] = cur;
+    }
+
+    int q;
+    cin >> q;
+
+    while (q--){
+        int x, j;
+        cin >> x >> j;
+        j--;
+
+        int i = idx[x];
+
+        if (i < j){
+            answer(seg[j] <= i);
+        }else if (j < i){
+            answer(seg[i] <= j);
+        }else{
+            answer(1);
+        }
     }
 
     return 0;
