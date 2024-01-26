@@ -28,3 +28,13 @@
 --   match h with
 
 --   ⟨ha, hb⟩
+
+example : ¬(A ∨ B) ↔ ¬A ∧ ¬B :=
+  have ha := sorry
+
+  have hb := fun ⟨h1, h2⟩ h3 =>
+    match h3 with
+    | .inl h3 => h1 h3
+    | .inr h3 => h2 h3
+
+  ⟨ha, hb⟩

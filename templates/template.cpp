@@ -27,7 +27,7 @@ template <class T> using pequeg = priority_queue<T, vector<T>, greater<T>>;
 #define sd second
 
 #define For(i, l, r) for (int i=l; i<r; i++)
-#define ForR(i, l, r) for (int i=r-1; i>=l; i--)
+#define ForR(i, r, l) for (int i=r-1; i>=l; i--)
 #define ForEach(x, vec) for (auto &x : vec)
 
 template <typename T>
@@ -57,6 +57,7 @@ void solve(){
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
+    srand(80085);
 
     int t = 1;
     // cin >> t;
