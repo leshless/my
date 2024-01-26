@@ -1,36 +1,34 @@
 #pragma GCC optimize("O3")
-
+ 
 #include <bits/stdc++.h>
-
-using namespace std::chrono;
+ 
 using namespace std;
-
+ 
 typedef long long ll;
 typedef double dbl;
 typedef long double ld;
 typedef unsigned int uint;
 typedef unsigned long long ull;
-
+ 
 typedef pair <int, int> pi;
 typedef pair <ll,ll> pll;
-
+ 
 typedef vector <int> vi;
 typedef vector <ll> vll;
 typedef vector <ld> vld;
 typedef vector <pi> vpi;
 typedef vector <pll> vpll;
-
+ 
 template <class T> using peque = priority_queue<T>;
 template <class T> using pequeg = priority_queue<T, vector<T>, greater<T>>;
-
-#define map unordered_map
+ 
 #define ft first 
 #define sd second
-
+ 
 #define For(i, l, r) for (int i=l; i<r; i++)
-#define ForR(i, r, l) for (int i=r-1; i>=l; i--)
+#define ForR(i, l, r) for (int i=r-1; i>=l; i--)
 #define ForEach(x, vec) for (auto &x : vec)
-
+ 
 template <typename T>
 void Println(T &x) {cout << x << "\n";}
 template <typename T>
@@ -42,7 +40,7 @@ void Print(vector <T> &vec) {
     }
     cout << "\n";
 }
-
+ 
 #define All(vec) vec.begin(), vec.end()
 #define Len(vec) int(vec.size())
 #define Reverse(vec) reverse(vec.begin(), vec.end())
@@ -50,29 +48,48 @@ void Print(vector <T> &vec) {
 #define Min(vec) *min_element(vec.begin(), vec.end())
 #define Max(vec) *max_element(vec.begin(), vec.end())
 
-void timeout(int dur) {
-    auto st = high_resolution_clock::now();
-    while (true) {
-        auto nt = high_resolution_clock::now();
-        auto dt = duration_cast<milliseconds>(nt - st).count();
-        if (dt >= dur) {
-            break;
+void solve(){
+    int n; 
+    cin >> n;
+
+    vi nums(n);
+    For(i, 0, n){
+        cin >> nums[i];
+    }
+
+    int res = 0;
+    for (int k = 1; k*k <= n; k++){
+        if (n % k == 0){
+            int g = 0;
+            For(i, 0, n-k){
+                g = __gcd(g, abs(nums[i] - nums[i+k]));
+            }
+            res += (g != 1);
+
+            if (n/k != k){
+                g = 0;
+                For(i, 0, n-(n/k)){
+                    g = __gcd(g, abs(nums[i] - nums[i+(n/k)]));
+                }
+                res += (g != 1);
+            }
         }
     }
-}
 
-void solve(){
+    cout << res << endl;
+
     return;
 }
+
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    srand(80085);
 
-    int t = 1;
-    // cin >> t;
-    while(t--){
+    int t;
+    cin >> t;
+
+    while (t--){
         solve();
     }
 
